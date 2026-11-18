@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sky Corpes | Technology and business consulting</title>
+  <meta name="description" content="Sky Corpes helps companies plan, build and run the technology their business depends on. Cloud, software, data, security and the strategy that ties them together.">
+  <meta name="theme-color" content="#12264a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #f7f5f0;
+      --white: #ffffff;
+      --ink: #101a2b;
+      --navy: #12264a;
+      --navy-2: #1b3562;
+      --muted: #596579;
+      --line: #dfdbd0;
+      --amber: #d9822b;
+      --amber-dark: #b86a1b;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 17px; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img, svg { display: block; max-width: 100%; }
+    :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 4px; }
+    .wrap { width: min(100% - 48px, 1140px); margin-inline: auto; }
+
+    /* Logo */
+    .brand { display: inline-flex; align-items: center; gap: 12px; }
+    .brand svg { width: 40px; height: 40px; flex: none; }
+    .brand-text { display: grid; line-height: 1.05; }
+    .brand-text b { font-family: var(--serif); font-weight: 600; font-size: 1.32rem; letter-spacing: -.01em; }
+    .brand-text small { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-top: 4px; }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; background: rgba(247,245,240,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .bar { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+    nav ul { display: flex; align-items: center; gap: 30px; }
+    nav a { font-size: .95rem; font-weight: 500; color: #36435a; }
+    nav a:hover { color: var(--amber-dark); }
+    .btn { display: inline-block; padding: 12px 24px; border-radius: 6px; font-weight: 600; font-size: .95rem; border: 1.5px solid var(--navy); cursor: pointer; font-family: inherit; transition: background .2s, color .2s, transform .2s; }
+    .btn-solid { background: var(--navy); color: #fff; }
+    .btn-solid:hover { background: var(--navy-2); }
+    .btn-line { background: transparent; color: var(--navy); }
+    .btn-line:hover { background: var(--navy); color: #fff; }
+    .btn-amber { background: var(--amber); border-color: var(--amber); color: #fff; }
+    .btn-amber:hover { background: var(--amber-dark); border-color: var(--amber-dark); }
+    .staff { font-size: .88rem; padding: 8px 16px; }
+    .burger { display: none; background: none; border: 0; cursor: pointer; padding: 6px; color: var(--navy); }
+
+    /* Hero */
+    .hero { padding: 92px 0 84px; }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 72px; align-items: center; }
+    .kicker { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 600; color: var(--amber-dark); margin-bottom: 18px; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.02em; line-height: 1.15; color: var(--navy); }
+    h1 { font-size: clamp(2.5rem, 5vw, 3.9rem); margin-bottom: 24px; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 560px; margin-bottom: 34px; }
+    .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .first-call { background: var(--navy); color: #e8edf6; border-radius: 10px; padding: 38px 36px; position: relative; }
+    .first-call::before { content: ""; position: absolute; top: 0; left: 36px; width: 54px; height: 4px; background: var(--amber); }
+    .first-call h3 { color: #fff; font-size: 1.4rem; margin-bottom: 22px; margin-top: 6px; }
+    .first-call ol { list-style: none; counter-reset: s; display: grid; gap: 20px; }
+    .first-call li { counter-increment: s; padding-left: 44px; position: relative; font-size: .97rem; line-height: 1.6; color: #c9d3e4; }
+    .first-call li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--amber); color: var(--amber); display: grid; place-items: center; font-weight: 600; font-size: .85rem; }
+    .first-call li b { color: #fff; font-weight: 600; }
+
+    /* Sections */
+    section { padding: 92px 0; }
+    .alt { background: var(--white); border-block: 1px solid var(--line); }
+    .head { max-width: 640px; margin-bottom: 54px; }
+    h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin-bottom: 14px; }
+    .head p { color: var(--muted); font-size: 1.08rem; }
+
+    .services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; }
+    .svc { padding: 28px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 46px 1fr; gap: 18px; }
+    .svc:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .svc-ic { width: 46px; height: 46px; border-radius: 10px; background: #efe9dc; color: var(--navy); display: grid; place-items: center; }
+    .svc h3 { font-size: 1.25rem; margin-bottom: 6px; }
+    .svc p { color: var(--muted); font-size: .97rem; }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; counter-reset: st; }
+    .step { counter-increment: st; border-top: 3px solid var(--navy); padding-top: 20px; }
+    .step::before { content: "0" counter(st); font-family: var(--serif); font-size: 1.1rem; color: var(--amber-dark); font-weight: 600; display: block; margin-bottom: 10px; }
+    .step h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .step p { color: var(--muted); font-size: .95rem; }
+
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .two p { color: var(--muted); margin-bottom: 16px; }
+    .sectors { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .sectors span { border: 1px solid var(--line); background: var(--white); padding: 7px 16px; border-radius: 999px; font-size: .92rem; color: #36435a; }
+    .quote { border-left: 4px solid var(--amber); padding: 6px 0 6px 26px; font-family: var(--serif); font-size: 1.45rem; line-height: 1.4; color: var(--navy); }
+    .quote small { display: block; margin-top: 14px; font-family: var(--sans); font-size: .88rem; color: var(--muted); }
+
+    .models { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .model { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 34px 30px; display: flex; flex-direction: column; }
+    .model h3 { font-size: 1.35rem; margin-bottom: 10px; }
+    .model > p { color: var(--muted); font-size: .96rem; margin-bottom: 20px; }
+    .model ul { display: grid; gap: 10px; font-size: .94rem; margin-bottom: 26px; flex: 1; color: #36435a; }
+    .model li { padding-left: 22px; position: relative; }
+    .model li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 8px; height: 8px; background: var(--amber); border-radius: 50%; }
+
+    details { border-top: 1px solid var(--line); }
+    details:last-child { border-bottom: 1px solid var(--line); }
+    summary { cursor: pointer; list-style: none; padding: 22px 0; font-family: var(--serif); font-size: 1.15rem; font-weight: 600; color: var(--navy); display: flex; justify-content: space-between; gap: 20px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; font-size: 1.5rem; color: var(--amber-dark); line-height: 1; transition: transform .2s; }
+    details[open] summary::after { transform: rotate(45deg); }
+    details p { color: var(--muted); padding: 0 40px 24px 0; }
+    .faq { max-width: 800px; }
+
+    /* Contact */
+    .contact { background: var(--navy); color: #d4dcea; }
+    .contact h2 { color: #fff; }
+    .contact .kicker { color: #f0b36f; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 72px; }
+    .contact-grid > div > p { margin-bottom: 18px; color: #b9c5da; }
+    .contact-grid a.mail { color: #fff; border-bottom: 1px solid var(--amber); font-weight: 500; }
+    form { background: var(--white); color: var(--ink); border-radius: 10px; padding: 34px; display: grid; gap: 16px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    label { display: grid; gap: 6px; font-size: .84rem; font-weight: 600; color: #36435a; }
+    input, select, textarea { font: inherit; font-size: .96rem; font-weight: 400; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); width: 100%; }
+    textarea { min-height: 120px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(18,38,74,.12); }
+    .note { font-size: .92rem; min-height: 1.3em; color: #1a7a4c; }
+    .note.err { color: #b3261e; }
+
+    footer { background: #0c1a33; color: #9fb0cb; padding: 56px 0 30px; font-size: .92rem; }
+    footer .brand-text small { color: #8497b7; }
+    footer .brand-text b { color: #fff; }
+    .fgrid { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 36px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.12); }
+    .fgrid p { max-width: 320px; margin-top: 16px; }
+    .fcols { display: flex; gap: 64px; flex-wrap: wrap; }
+    .fcols h4 { color: #fff; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; font-weight: 600; }
+    .fcols li { margin-bottom: 9px; }
+    .fcols a:hover { color: #fff; }
+    .fbot { padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: .84rem; }
+
+    @media (max-width: 960px) {
+      .hero-grid, .two, .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+      .services { grid-template-columns: 1fr; }
+      .svc:nth-last-child(2) { border-bottom: 0; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .models { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .burger { display: block; }
+      nav { position: absolute; top: 76px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--line); max-height: 0; overflow: hidden; transition: max-height .3s; }
+      nav.open { max-height: 440px; }
+      nav ul { flex-direction: column; align-items: stretch; gap: 0; padding: 8px 24px 20px; }
+      nav li a { display: block; padding: 13px 0; }
+      .hero { padding: 56px 0; } section { padding: 64px 0; }
+      .steps, .row { grid-template-columns: 1fr; }
+      form { padding: 24px 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+
+  <!-- Shared logo mark -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mark" viewBox="0 0 40 40">
+      <rect width="40" height="40" rx="9" fill="#12264a"/>
+      <rect x="8" y="24" width="6" height="8" rx="1" fill="#fff"/>
+      <rect x="17" y="18" width="6" height="14" rx="1" fill="#fff"/>
+      <rect x="26" y="12" width="6" height="20" rx="1" fill="#fff"/>
+      <circle cx="11" cy="14" r="3.4" fill="#d9822b"/>
+    </symbol>
+  </svg>
+
+  <header>
+    <div class="wrap bar">
+      <a href="#top" class="brand" aria-label="Sky Corpes home">
+        <svg><use href="#mark"/></svg>
+        <span class="brand-text"><b>Sky Corpes</b><small>Technology &amp; Business</small></span>
+      </a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <nav id="nav" aria-label="Main">
+        <ul>
+          <li><a href="#services">What we do</a></li>
+          <li><a href="#how">How we work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">Questions</a></li>
+          <li><a href="portal.html" class="btn btn-line staff">Team login</a></li>
+          <li><a href="#contact" class="btn btn-solid staff">Contact us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="kicker">Technology and business consulting</p>
+          <h1>We build and run the technology your business depends on.</h1>
+          <p class="lead">Most of our work starts with a real, slightly messy problem: a system nobody wants to touch, a migration that keeps slipping, a spreadsheet that quietly runs the company. We help you sort it out and then stick around to make sure it holds.</p>
+          <div class="actions">
+            <a href="#contact" class="btn btn-amber">Talk to our team</a>
+            <a href="#services" class="btn btn-line">See what we do</a>
+          </div>
+        </div>
+        <aside class="first-call" aria-label="What a first conversation looks like">
+          <h3>What a first conversation looks like</h3>
+          <ol>
+            <li><b>A short call, no slideshow.</b> You tell us what is going on and we ask a lot of questions.</li>
+            <li><b>A written summary.</b> A few days later you get a plain note on what we heard and what we would tackle first.</li>
+            <li><b>An honest answer.</b> If we are the right people we will scope the work. If we are not, we will say so.</li>
+          </ol>
+        </aside>
+      </div>
+    </section>
+
+    <section class="alt" id="services">
+      <div class="wrap">
+        <div class="head">
+          <p class="kicker">What we do</p>
+          <h2>Six areas, one team that talks to each other.</h2>
+          <p>Technology projects go wrong when the engineers and the business people work separately. Ours do not.</p>
+        </div>
+        <div class="services">
+          <article class="svc">
+            <div class="svc-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10a6 6 0 00-11.6-2A4.5 4.5 0 007 17h11a4 4 0 000-7z"/></svg></div>
+            <div><h3>Cloud and infrastructure</h3><p>Moving to the cloud, tidying up what is already there, and keeping the bill under control once you are in.</p></div>
+          </article>
+          <article class="svc">
+            <div class="svc-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+            <div><h3>Software development</h3><p>Web and mobile applications built for the way your people actually work, and documented so you are never locked in.</p></div>
+          </article>
+          <article class="svc">
+            <div class="svc-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+            <div><h3>Data and reporting</h3><p>One trustworthy set of numbers, and dashboards your leadership team will actually open on a Monday morning.</p></div>
+          </article>
+          <article class="svc">
+            <div class="svc-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg></div>
+            <div><h3>Security</h3><p>Finding the gaps before someone else does, fixing the ones that matter and getting you ready for audits.</p></div>
+          </article>
+          <article class="svc">
+            <div class="svc-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></div>
+            <div><h3>Business strategy</h3><p>Technology roadmaps and process work that start from what the business needs, not from what is fashionable.</p></div>
+          </article>
+          <article class="svc">
+            <div class="svc-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+            <div><h3>Managed support</h3><p>A named team that watches your systems, answers the phone and fixes things before you notice they broke.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="head">
+          <p class="kicker">How we work</p>
+          <h2>Four stages, and you see progress at every one.</h2>
+        </div>
+        <div class="steps">
+          <div class="step"><h3>Listen</h3><p>We spend time with your team, your users and your existing systems before suggesting anything.</p></div>
+          <div class="step"><h3>Plan</h3><p>You get a clear scope, a timeline and a price range, in writing and in plain English.</p></div>
+          <div class="step"><h3>Build</h3><p>Short cycles with working demos, so problems surface early and nothing arrives as a surprise.</p></div>
+          <div class="step"><h3>Look after</h3><p>After launch we stay on to support, tune and improve, for as long as you want us to.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt" id="about">
+      <div class="wrap two">
+        <div>
+          <p class="kicker">About us</p>
+          <h2>A small, senior team that picks up the phone.</h2>
+          <p>Sky Corpes was set up on a simple idea: companies are better served by consultants who understand both the technology and the commercial side of the decision. So we hire engineers who like talking to customers, and business people who are not afraid of a command line.</p>
+          <p>We would rather take on fewer projects and do them properly than stretch ourselves thin.</p>
+          <div class="sectors" aria-label="Sectors we work in">
+            <span>Financial services</span><span>Healthcare</span><span>Retail</span><span>Logistics</span><span>Energy</span><span>Public sector</span>
+          </div>
+        </div>
+        <blockquote class="quote">
+          "Good technology work should feel boring in the best way: predictable, well explained and finished when we said it would be."
+          <small>How we describe our own standard</small>
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="engage">
+      <div class="wrap">
+        <div class="head">
+          <p class="kicker">Working together</p>
+          <h2>Pick the arrangement that fits where you are.</h2>
+        </div>
+        <div class="models">
+          <div class="model">
+            <h3>Advisory</h3>
+            <p>For when you need a clear head and an outside view before committing budget.</p>
+            <ul><li>Technology and architecture reviews</li><li>Roadmap workshops with your leaders</li><li>Vendor and tooling advice</li></ul>
+            <a href="#contact" class="btn btn-line">Ask about advisory</a>
+          </div>
+          <div class="model">
+            <h3>Project delivery</h3>
+            <p>A dedicated team that takes a defined piece of work from first sketch to launch.</p>
+            <ul><li>Fixed-scope or flexible engagements</li><li>Engineers, designers and a project lead</li><li>Testing, handover and documentation</li></ul>
+            <a href="#contact" class="btn btn-solid">Plan a project</a>
+          </div>
+          <div class="model">
+            <h3>Ongoing partnership</h3>
+            <p>We become your technology team, or the extra pair of hands your own team needs.</p>
+            <ul><li>Monitoring and support</li><li>Regular security and cost reviews</li><li>A named contact who knows your setup</li></ul>
+            <a href="#contact" class="btn btn-line">Ask about support</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt" id="faq">
+      <div class="wrap">
+        <div class="head"><p class="kicker">Questions</p><h2>Things people usually ask first.</h2></div>
+        <div class="faq">
+          <details open><summary>How do we get started?</summary><p>Send us a message below or email us. We will set up a short call, listen, and follow up with a written summary of next steps. There is no charge for that first conversation.</p></details>
+          <details><summary>Can you work with our existing team and tools?</summary><p>Yes, and we prefer to. We fit in around the people and systems you already have, and we document everything so your team can take over whenever they want.</p></details>
+          <details><summary>How do you handle confidential information?</summary><p>We work under signed confidentiality terms from day one, give people only the access they need and keep client data out of personal accounts and devices.</p></details>
+          <details><summary>Do you only take large projects?</summary><p>No. Plenty of our work starts small, such as a review, a pilot or a single integration. We are happy to start there and see whether it makes sense to continue.</p></details>
+          <details><summary>What happens after the project is finished?</summary><p>You own the work and the documentation. If you want us to stay involved, we offer support arrangements. If you would rather run it yourselves, we will make that handover as smooth as we can.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap contact-grid">
+        <div>
+          <p class="kicker">Contact</p>
+          <h2>Tell us what you are working on.</h2>
+          <p>Write a few lines about the problem or the goal. A real person on our team reads every message and replies within one working day.</p>
+          <p>Prefer email? <a class="mail" href="mailto:info@skycorpes.com">info@skycorpes.com</a></p>
+          <p>Already part of the team? <a class="mail" href="portal.html">Sign in to the team portal</a></p>
+        </div>
+        <form id="form" novalidate>
+          <div class="row">
+            <label>Your name<input type="text" name="name" autocomplete="name" required></label>
+            <label>Work email<input type="email" name="email" autocomplete="email" required></label>
+          </div>
+          <div class="row">
+            <label>Company<input type="text" name="company" autocomplete="organization"></label>
+            <label>Topic
+              <select name="interest">
+                <option>Cloud and infrastructure</option>
+                <option>Software development</option>
+                <option>Data and reporting</option>
+                <option>Security</option>
+                <option>Business strategy</option>
+                <option>Managed support</option>
+                <option>Something else</option>
+              </select>
+            </label>
+          </div>
+          <label>What is going on?<textarea name="message" required></textarea></label>
+          <button class="btn btn-amber" type="submit">Send message</button>
+          <p class="note" id="note" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="fgrid">
+        <div>
+          <a href="#top" class="brand"><svg><use href="#mark"/></svg><span class="brand-text"><b>Sky Corpes</b><small>Technology &amp; Business</small></span></a>
+          <p>Technology and business consulting for companies that would rather have it done properly.</p>
+        </div>
+        <div class="fcols">
+          <div><h4>Company</h4><ul><li><a href="#services">What we do</a></li><li><a href="#how">How we work</a></li><li><a href="#about">About</a></li></ul></div>
+          <div><h4>Get in touch</h4><ul><li><a href="#contact">Contact form</a></li><li><a href="mailto:info@skycorpes.com">info@skycorpes.com</a></li></ul></div>
+          <div><h4>Team</h4><ul><li><a href="portal.html">Team portal login</a></li></ul></div>
+        </div>
+      </div>
+      <div class="fbot"><span>&copy; <span id="yr"></span> Sky Corpes. All rights reserved.</span><span>Technology and business consulting</span></div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("yr").textContent = new Date().getFullYear();
+
+    const burger = document.getElementById("burger"), nav = document.getElementById("nav");
+    burger.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      burger.setAttribute("aria-expanded", String(open));
+    });
+    nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+      nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false");
+    }));
+
+    // Contact form. Enquiries are saved locally so the team portal can show them.
+    // Replace this with a call to your real backend or form service when you go live.
+    const form = document.getElementById("form"), note = document.getElementById("note");
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const f = new FormData(form);
+      const name = f.get("name").trim(), email = f.get("email").trim(), msg = f.get("message").trim();
+      note.className = "note";
+      if (!name || !msg || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        note.textContent = "Please add your name, a valid email and a short message.";
+        note.classList.add("err"); return;
+      }
+      try {
+        const list = JSON.parse(localStorage.getItem("sc_enquiries") || "[]");
+        list.unshift({ id: "e" + Date.now(), name, email, company: f.get("company").trim(), interest: f.get("interest"), message: msg, ts: Date.now(), handled: false });
+        localStorage.setItem("sc_enquiries", JSON.stringify(list));
+      } catch (err) { /* storage unavailable */ }
+      note.textContent = "Thanks, " + name.split(" ")[0] + ". We have your message and will reply within one working day.";
+      form.reset();
+    });
+  </script>
+</body>
+</html>

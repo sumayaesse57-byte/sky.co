@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sky Corpes | Team portal</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f3f1ec; --panel: #ffffff; --panel-2: #faf9f6; --ink: #101a2b; --muted: #637086; --line: #e4e0d6;
+      --navy: #12264a; --navy-2: #1b3562; --amber: #d9822b; --amber-d: #b86a1b; --amber-soft: #fbeedd;
+      --green: #1f8a5b; --green-soft: #dff3e9; --red: #c0392b; --red-soft: #fbe3df; --blue-soft: #e3ecfb; --blue: #2c5db3;
+      --shadow: 0 1px 2px rgba(16,26,43,.05), 0 6px 18px rgba(16,26,43,.05);
+      --serif: 'Fraunces', Georgia, serif; --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --side: 248px;
+    }
+    [data-theme="dark"] {
+      --bg: #0b1424; --panel: #121e35; --panel-2: #0f192e; --ink: #e8edf6; --muted: #8fa0bb; --line: #213050;
+      --amber-soft: #3a2a14; --green-soft: #12382a; --red-soft: #3d1c1a; --blue-soft: #16294d; --blue: #8db4ff;
+      --shadow: 0 1px 2px rgba(0,0,0,.3);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-family: var(--sans); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+    body { font-size: 15px; line-height: 1.55; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font: inherit; color: inherit; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; border-radius: 4px; }
+    [hidden] { display: none !important; }
+    h1, h2, h3 { font-family: var(--serif); letter-spacing: -.015em; line-height: 1.2; }
+
+    input, select, textarea { font: inherit; font-size: 14px; padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 7px; background: var(--panel); color: var(--ink); width: 100%; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--navy-2); box-shadow: 0 0 0 3px rgba(44,93,179,.18); }
+    textarea { resize: vertical; min-height: 90px; }
+    label { display: grid; gap: 5px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+
+    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 15px; border-radius: 7px; border: 1.5px solid var(--line); background: var(--panel); font-weight: 600; font-size: 13.5px; transition: background .15s, border-color .15s; white-space: nowrap; }
+    .btn:hover { border-color: var(--muted); }
+    .btn-p { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .btn-p:hover { background: var(--navy-2); border-color: var(--navy-2); }
+    .btn-a { background: var(--amber); border-color: var(--amber); color: #fff; }
+    .btn-a:hover { background: var(--amber-d); border-color: var(--amber-d); }
+    .btn-d { color: var(--red); }
+    .btn-sm { padding: 5px 10px; font-size: 12.5px; }
+    .icon-btn { width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); display: grid; place-items: center; position: relative; }
+    .icon-btn:hover { border-color: var(--muted); }
+
+    /* Brand */
+    .brand { display: flex; align-items: center; gap: 11px; }
+    .brand svg { width: 36px; height: 36px; flex: none; }
+    .brand b { font-family: var(--serif); font-weight: 600; font-size: 1.18rem; display: block; line-height: 1.05; }
+    .brand small { font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; opacity: .65; display: block; margin-top: 3px; }
+
+    /* Login */
+    #login { min-height: 100vh; display: grid; grid-template-columns: 1.1fr 1fr; }
+    .login-side { background: var(--navy); color: #fff; padding: 52px 56px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+    .login-side::after { content: ""; position: absolute; right: -90px; bottom: -90px; width: 340px; height: 340px; border-radius: 50%; border: 1.5px solid rgba(217,130,43,.35); box-shadow: 0 0 0 46px rgba(255,255,255,.025), 0 0 0 92px rgba(255,255,255,.02); }
+    .login-side h2 { font-size: 2.1rem; max-width: 420px; margin-bottom: 14px; }
+    .login-side p { color: #b9c5da; max-width: 400px; }
+    .login-side .small { font-size: 12.5px; color: #8497b7; }
+    .login-form { display: grid; place-items: center; padding: 40px 24px; }
+    .login-card { width: min(100%, 390px); }
+    .login-card h1 { font-size: 1.8rem; margin-bottom: 6px; }
+    .login-card > p { color: var(--muted); margin-bottom: 26px; }
+    .login-card form { display: grid; gap: 16px; }
+    .err { color: var(--red); font-size: 13px; min-height: 1.2em; }
+    .hint { margin-top: 22px; border: 1px dashed var(--line); border-radius: 8px; padding: 12px 14px; font-size: 12.5px; color: var(--muted); background: var(--panel-2); }
+    .hint code { background: var(--amber-soft); padding: 1px 6px; border-radius: 4px; color: var(--amber-d); font-size: 12px; }
+    .back { display: inline-block; margin-top: 20px; font-size: 13px; color: var(--muted); }
+    .back:hover { color: var(--ink); }
+
+    /* App shell */
+    .shell { display: grid; grid-template-columns: var(--side) 1fr; min-height: 100vh; }
+    .side { background: var(--navy); color: #cdd7e8; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; padding: 22px 14px; z-index: 60; }
+    .side .brand { padding: 4px 8px 22px; color: #fff; }
+    .side nav { display: grid; gap: 3px; flex: 1; align-content: start; }
+    .side nav a { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; font-weight: 500; font-size: 14px; color: #b4c1d8; }
+    .side nav a:hover { background: rgba(255,255,255,.07); color: #fff; }
+    .side nav a.on { background: rgba(217,130,43,.18); color: #fff; box-shadow: inset 3px 0 0 var(--amber); }
+    .side nav .count { margin-left: auto; background: var(--amber); color: #fff; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; }
+    .me { display: flex; align-items: center; gap: 11px; padding: 14px 8px 0; border-top: 1px solid rgba(255,255,255,.1); }
+    .me b { display: block; font-size: 13.5px; color: #fff; line-height: 1.2; }
+    .me small { font-size: 11.5px; color: #8fa2c3; text-transform: capitalize; }
+    .me button { margin-left: auto; background: none; border: 0; color: #8fa2c3; padding: 6px; border-radius: 6px; }
+    .me button:hover { color: #fff; background: rgba(255,255,255,.08); }
+
+    .main { min-width: 0; display: flex; flex-direction: column; }
+    .top { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 12px; padding: 14px 32px; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .top .burger { display: none; }
+    .crumb { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; }
+    .searchbtn { margin-left: auto; display: flex; align-items: center; gap: 10px; min-width: 280px; padding: 8px 12px; border: 1px solid var(--line); background: var(--panel); border-radius: 8px; color: var(--muted); font-size: 13.5px; text-align: left; }
+    .searchbtn:hover { border-color: var(--muted); }
+    kbd { margin-left: auto; font-family: inherit; font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; background: var(--panel-2); }
+    .dot { position: absolute; top: 7px; right: 8px; min-width: 16px; height: 16px; border-radius: 999px; background: var(--red); color: #fff; font-size: 10px; font-weight: 600; display: grid; place-items: center; padding: 0 4px; }
+    #view { padding: 30px 32px 60px; max-width: 1360px; width: 100%; }
+
+    /* Page bits */
+    .ph { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
+    .ph h1 { font-size: 1.9rem; }
+    .ph p { color: var(--muted); margin-top: 4px; }
+    .row-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); }
+    .card-h { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px 0; }
+    .card-h h3 { font-size: 1.02rem; font-family: var(--sans); font-weight: 600; letter-spacing: 0; }
+    .card-b { padding: 14px 20px 20px; }
+    .muted { color: var(--muted); }
+    .small { font-size: 12.5px; }
+    .grid { display: grid; gap: 18px; }
+    .g4 { grid-template-columns: repeat(4, 1fr); }
+    .g3 { grid-template-columns: repeat(3, 1fr); }
+    .g2 { grid-template-columns: 1.4fr 1fr; }
+    .g2e { grid-template-columns: 1fr 1fr; }
+    .mt { margin-top: 18px; }
+
+    .kpi { padding: 18px 20px; }
+    .kpi small { color: var(--muted); font-size: 12.5px; font-weight: 500; }
+    .kpi strong { display: block; font-family: var(--serif); font-size: 1.95rem; line-height: 1.15; margin: 4px 0 2px; }
+    .kpi span { font-size: 12.5px; color: var(--muted); }
+    .kpi.warn strong { color: var(--red); }
+
+    .avatar { width: 32px; height: 32px; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 600; font-size: 12px; flex: none; }
+    .avatar.lg { width: 52px; height: 52px; font-size: 17px; }
+    .avatar.sm { width: 24px; height: 24px; font-size: 10px; }
+
+    .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; text-transform: capitalize; }
+    .b-client { background: var(--green-soft); color: var(--green); }
+    .b-prospect { background: var(--amber-soft); color: var(--amber-d); }
+    .b-partner { background: var(--blue-soft); color: var(--blue); }
+    .b-vendor, .b-other { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
+    .b-dormant { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); }
+    .b-over { background: var(--red-soft); color: var(--red); }
+
+    .list li { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+    .list li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .list .grow { flex: 1; min-width: 0; }
+    .list .grow b { display: block; font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .list .grow span { font-size: 12.5px; color: var(--muted); }
+    .empty { text-align: center; color: var(--muted); padding: 22px 0; font-size: 13.5px; }
+
+    .tick { width: 19px; height: 19px; border: 1.8px solid var(--muted); border-radius: 5px; display: grid; place-items: center; background: transparent; padding: 0; flex: none; color: #fff; }
+    .tick.done { background: var(--green); border-color: var(--green); }
+    .done-text { text-decoration: line-through; color: var(--muted); }
+    .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; background: var(--panel); }
+    .seg button { border: 0; background: transparent; padding: 5px 11px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+    .seg button.on { background: var(--navy); color: #fff; }
+    .add-inline { display: flex; gap: 8px; margin-top: 12px; }
+
+    /* Table */
+    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+    .toolbar input[type="search"] { max-width: 300px; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip { border: 1px solid var(--line); background: var(--panel); padding: 5px 13px; border-radius: 999px; font-size: 13px; font-weight: 500; color: var(--muted); }
+    .chip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .tbl-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { text-align: left; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel-2); white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    tbody tr { cursor: pointer; }
+    tbody tr:hover { background: var(--panel-2); }
+    .who { display: flex; align-items: center; gap: 12px; }
+    .who b { display: block; font-weight: 600; }
+    .who span { font-size: 12.5px; color: var(--muted); }
+    .od { color: var(--red); font-weight: 600; }
+
+    /* Drawer & modal */
+    .overlay { position: fixed; inset: 0; background: rgba(8,15,30,.5); z-index: 90; }
+    .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(100%, 470px); background: var(--panel); z-index: 95; box-shadow: -10px 0 40px rgba(0,0,0,.25); overflow-y: auto; animation: slide .2s ease; }
+    @keyframes slide { from { transform: translateX(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+    .dr-h { padding: 24px 26px 18px; border-bottom: 1px solid var(--line); display: flex; gap: 16px; align-items: flex-start; }
+    .dr-h h2 { font-size: 1.35rem; }
+    .dr-b { padding: 22px 26px 40px; display: grid; gap: 22px; }
+    .dr-b h4 { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; font-weight: 600; }
+    .kv { display: grid; grid-template-columns: 110px 1fr; gap: 7px 12px; font-size: 14px; }
+    .kv dt { color: var(--muted); }
+    .tl { border-left: 2px solid var(--line); margin-left: 6px; display: grid; gap: 14px; }
+    .tl li { padding-left: 16px; position: relative; font-size: 13.5px; }
+    .tl li::before { content: ""; position: absolute; left: -6px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--amber); border: 2px solid var(--panel); }
+    .tl small { display: block; color: var(--muted); font-size: 12px; }
+    .tags span { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--line); margin: 0 5px 5px 0; color: var(--muted); }
+    .modal { position: fixed; z-index: 100; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(94%, 560px); max-height: 90vh; overflow-y: auto; background: var(--panel); border-radius: 14px; box-shadow: 0 30px 80px rgba(0,0,0,.35); }
+    .modal-h { padding: 20px 24px 6px; display: flex; justify-content: space-between; align-items: center; }
+    .modal-h h2 { font-size: 1.3rem; }
+    .modal form { padding: 14px 24px 24px; display: grid; gap: 14px; }
+    .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .modal-f { display: flex; justify-content: flex-end; gap: 10px; margin-top: 4px; }
+
+    /* Pipeline */
+    .board { display: grid; grid-template-columns: repeat(5, minmax(210px, 1fr)); gap: 14px; overflow-x: auto; padding-bottom: 8px; }
+    .col { background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: 12px; min-height: 340px; }
+    .col.over { border-color: var(--amber); background: var(--amber-soft); }
+    .col-h { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 6px 12px; }
+    .col-h b { font-size: 13.5px; }
+    .col-h span { font-size: 12.5px; color: var(--muted); }
+    .deal { background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 12px 13px; margin-bottom: 10px; cursor: grab; box-shadow: var(--shadow); }
+    .deal:active { cursor: grabbing; }
+    .deal.drag { opacity: .4; }
+    .deal b { display: block; font-size: 14px; line-height: 1.3; margin-bottom: 3px; }
+    .deal .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 12.5px; }
+    .deal .val { font-weight: 600; }
+
+    /* Outreach */
+    .compose { display: grid; gap: 14px; }
+    .tpl { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* Projects & team */
+    .proj { padding: 18px 20px; display: grid; gap: 12px; }
+    .proj h3 { font-size: 1.05rem; font-family: var(--sans); font-weight: 600; letter-spacing: 0; }
+    .bar { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+    .bar i { display: block; height: 100%; background: var(--navy-2); border-radius: 999px; transition: width .25s; }
+    [data-theme="dark"] .bar i { background: var(--amber); }
+    .bar i.done { background: var(--green); }
+    .st { font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; }
+    .st-Planning { background: var(--blue-soft); color: var(--blue); }
+    .st-In-progress { background: var(--amber-soft); color: var(--amber-d); }
+    .st-Review { background: #efe3fa; color: #7a3fb0; }
+    .st-Done { background: var(--green-soft); color: var(--green); }
+    input[type="range"] { padding: 0; border: 0; height: 22px; accent-color: var(--amber); box-shadow: none; }
+    .person { padding: 22px; text-align: center; display: grid; gap: 4px; justify-items: center; }
+    .person b { font-size: 15px; margin-top: 8px; }
+    .stat { font-size: 12px; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; }
+    .stat::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c, #aaa); }
+
+    /* Charts */
+    .chart svg { width: 100%; height: auto; display: block; }
+    .chart text { fill: var(--muted); font-size: 10.5px; font-family: var(--sans); }
+    .chart .bar-v { fill: var(--navy-2); }
+    [data-theme="dark"] .chart .bar-v { fill: #5b86d6; }
+    .chart .grid-l { stroke: var(--line); }
+
+    /* Command palette */
+    .pal { position: fixed; z-index: 120; top: 14vh; left: 50%; transform: translateX(-50%); width: min(92%, 580px); background: var(--panel); border-radius: 14px; box-shadow: 0 30px 80px rgba(0,0,0,.4); overflow: hidden; }
+    .pal input { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 16px 20px; font-size: 16px; box-shadow: none !important; }
+    .pal ul { max-height: 340px; overflow-y: auto; padding: 8px; }
+    .pal li { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .pal li.sel { background: var(--amber-soft); }
+    .pal li small { margin-left: auto; color: var(--muted); font-size: 12px; text-transform: capitalize; }
+    .pop { position: absolute; top: 46px; right: 0; width: 320px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,.25); z-index: 70; padding: 8px; text-align: left; }
+    .pop li { padding: 10px 12px; border-radius: 8px; font-size: 13.5px; cursor: pointer; }
+    .pop li:hover { background: var(--panel-2); }
+    .pop li small { display: block; color: var(--muted); font-size: 12px; }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--navy); color: #fff; padding: 11px 20px; border-radius: 9px; font-size: 14px; z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,.3); animation: slide .2s ease; }
+
+    @media (max-width: 1100px) { .g4 { grid-template-columns: 1fr 1fr; } .g2, .g3 { grid-template-columns: 1fr; } .g2e { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      #login { grid-template-columns: 1fr; } .login-side { display: none; }
+      .shell { grid-template-columns: 1fr; }
+      .side { position: fixed; left: 0; top: 0; width: 262px; transform: translateX(-100%); transition: transform .25s; }
+      .side.open { transform: none; }
+      .top { padding: 12px 16px; } .top .burger { display: grid; }
+      .searchbtn { min-width: 0; } .searchbtn span, .searchbtn kbd { display: none; } .searchbtn { padding: 8px; width: 38px; height: 38px; justify-content: center; }
+      #view { padding: 22px 16px 50px; }
+    }
+    @media (max-width: 560px) { .g4 { grid-template-columns: 1fr; } .f2 { grid-template-columns: 1fr; } .kv { grid-template-columns: 90px 1fr; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 40 40">
+    <rect width="40" height="40" rx="9" fill="#12264a"/>
+    <rect x="8" y="24" width="6" height="8" rx="1" fill="#fff"/>
+    <rect x="17" y="18" width="6" height="14" rx="1" fill="#fff"/>
+    <rect x="26" y="12" width="6" height="20" rx="1" fill="#fff"/>
+    <circle cx="11" cy="14" r="3.4" fill="#d9822b"/>
+  </symbol>
+</svg>
+
+<!-- LOGIN -->
+<div id="login">
+  <aside class="login-side">
+    <div class="brand"><svg><use href="#mark"/></svg><div><b>Sky Corpes</b><small>Technology &amp; Business</small></div></div>
+    <div>
+      <h2>The team portal.</h2>
+      <p>Clients, deals, projects and the people behind them, all in one place. This area is for Sky Corpes team members only.</p>
+    </div>
+    <p class="small">Internal use only. Activity in this portal may be logged.</p>
+  </aside>
+  <div class="login-form">
+    <div class="login-card">
+      <h1>Sign in</h1>
+      <p>Use your Sky Corpes work email.</p>
+      <form id="loginForm" novalidate>
+        <label>Work email<input type="email" id="lemail" autocomplete="username" placeholder="name@skycorpes.com" required></label>
+        <label>Password<input type="password" id="lpass" autocomplete="current-password" required></label>
+        <p class="err" id="lerr" role="alert"></p>
+        <button class="btn btn-p" style="justify-content:center;padding:12px" type="submit">Sign in</button>
+      </form>
+      <div class="hint" id="hint"></div>
+      <a class="back" href="index.html">&larr; Back to skycorpes.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="shell" id="app" hidden>
+  <aside class="side" id="side">
+    <div class="brand"><svg><use href="#mark"/></svg><div><b>Sky Corpes</b><small>Team portal</small></div></div>
+    <nav id="nav" aria-label="Portal"></nav>
+    <div class="me" id="me"></div>
+  </aside>
+  <div class="main">
+    <header class="top">
+      <button class="icon-btn burger" id="burger" aria-label="Open menu"></button>
+      <div class="crumb" id="crumb">Dashboard</div>
+      <button class="searchbtn" id="searchBtn" aria-label="Search"></button>
+      <div style="position:relative">
+        <button class="icon-btn" id="bell" aria-label="Notifications"></button>
+        <div class="pop" id="pop" hidden></div>
+      </div>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"></button>
+    </header>
+    <main id="view" tabindex="-1"></main>
+  </div>
+</div>
+
+<div id="layer"></div>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const KEY = "sc_portal_v1", EKEY = "sc_enquiries", SKEY = "sc_session", TKEY = "sc_theme";
+  const DEMO_PASSWORD = "skycorpes-demo"; // DEMO ONLY. Real sign-in must be checked by a server.
+
+  /* ---------- icons ---------- */
+  const I = {
+    home: '<path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/>',
+    users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-6 6.5-6s6.5 2.5 6.5 6"/><path d="M16 4.5a3.5 3.5 0 010 7M18.5 14.5c2 .8 3 2.8 3 5.5"/>',
+    kanban: '<rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="11" rx="1"/><rect x="17" y="3" width="4" height="14" rx="1"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+    folder: '<path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>',
+    team: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/>',
+    gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+    bell: '<path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7"/><path d="M10 20a2 2 0 004 0"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/>',
+    moon: '<path d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 0010.5 10.5z"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>', download: '<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>',
+    x: '<path d="M6 6l12 12M18 6L6 18"/>', check: '<path d="M20 6L9 17l-5-5"/>',
+    logout: '<path d="M9 4H5a2 2 0 00-2 2v12a2 2 0 002 2h4M16 8l4 4-4 4M20 12H9"/>',
+    menu: '<path d="M4 6h16M4 12h16M4 18h16"/>', send: '<path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>'
+  };
+  const ic = (n, s = 18) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+
+  /* ---------- helpers ---------- */
+  const iso = n => { const x = new Date(); x.setDate(x.getDate() + n); return x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") + "-" + String(x.getDate()).padStart(2, "0"); };
+  const today = () => iso(0);
+  const fmtDate = s => s ? new Date(s + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" }) : "None set";
+  const money = n => "$" + Number(n || 0).toLocaleString();
+  const uid = p => p + Math.random().toString(36).slice(2, 8);
+  const ago = ts => { const m = Math.round((Date.now() - ts) / 60000); if (m < 1) return "just now"; if (m < 60) return m + " min ago"; const h = Math.round(m / 60); if (h < 24) return h + " hr ago"; const d = Math.round(h / 24); return d + (d === 1 ? " day ago" : " days ago"); };
+  const hue = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
+  const avatar = (name, cls = "") => `<span class="avatar ${cls}" style="background:hsl(${hue(name)} 42% 38%)" aria-hidden="true">${esc(name.split(" ").map(w => w[0]).slice(0, 2).join(""))}</span>`;
+  const STAGES = ["Lead", "Qualified", "Proposal", "Negotiation", "Won"];
+  const TYPES = ["client", "prospect", "partner", "vendor", "other"];
+
+  /* ---------- data ---------- */
+  function seed() {
+    const T = [
+      { id: "t1", name: "Amara Okafor", title: "Managing Director", dept: "Leadership", role: "admin", status: "In office" },
+      { id: "t2", name: "Daniel Reyes", title: "Head of Delivery", dept: "Engineering", role: "manager", status: "In office" },
+      { id: "t3", name: "Priya Nair", title: "Senior Cloud Engineer", dept: "Engineering", role: "staff", status: "Remote" },
+      { id: "t4", name: "Tomas Lindgren", title: "Business Development Lead", dept: "Sales", role: "staff", status: "In office" },
+      { id: "t5", name: "Grace Mutua", title: "Security Consultant", dept: "Security", role: "staff", status: "With a client" },
+      { id: "t6", name: "Owen Fischer", title: "Data Engineer", dept: "Engineering", role: "staff", status: "Remote" },
+      { id: "t7", name: "Lena Whitcombe", title: "Operations Manager", dept: "Operations", role: "manager", status: "Away" }
+    ];
+    T.forEach(t => t.email = t.name.split(" ")[0].toLowerCase().replace("á", "a") + "@skycorpes.com");
+    const mk = (id, name, company, role, type, status, owner, tags, last, next, notes, tl) => ({ id, name, company, role, email: name.split(" ")[0].toLowerCase() + "@" + company.toLowerCase().replace(/[^a-z]/g, "") + ".example.com", phone: "+1 555 01" + String(10 + Math.floor(Math.random() * 89)), type, status, owner, tags, lastContact: iso(last), nextFollowUp: next === null ? "" : iso(next), notes, timeline: tl.map(([d, k, t]) => ({ date: iso(d), kind: k, text: t })) });
+    const C = [
+      mk("c1", "Helena Brandt", "Harbor & Vale Logistics", "COO", "client", "active", "t4", ["logistics", "cloud"], -3, 4, "Moving warehouse systems off on-site servers. Prefers calls in the morning.", [[-3, "call", "Walked through the revised migration timeline."], [-21, "meeting", "On-site kickoff with her operations leads."]]),
+      mk("c2", "Marcus Odell", "Meridian Health Group", "IT Director", "client", "active", "t2", ["healthcare", "security"], -9, -2, "Very careful about patient data. Wants everything in writing.", [[-9, "email", "Sent the hardening checklist for review."], [-30, "meeting", "Quarterly review."]]),
+      mk("c3", "Sofia Alvarenga", "Oakline Retail", "Head of Digital", "client", "active", "t3", ["retail", "data"], -1, 10, "Keen on a single sales dashboard across all stores.", [[-1, "email", "Shared the data model draft."], [-14, "call", "Discussed phase two scope."]]),
+      mk("c4", "Jonas Weber", "Brightwater Energy", "CFO", "prospect", "active", "t4", ["energy"], -6, 1, "Interested in automating monthly finance reporting. Budget approved for this year.", [[-6, "call", "Intro call. Sent a one-page overview."]]),
+      mk("c5", "Aisha Rahman", "Tallis Financial", "CISO", "prospect", "active", "t5", ["finance", "security"], -14, -5, "Asked about a zero-trust review. Waiting on our proposal.", [[-14, "meeting", "Met at the regional security meetup."]]),
+      mk("c6", "Peter Kowalski", "Kestrel Public Works", "Procurement Lead", "prospect", "active", "t1", ["public sector"], -20, 7, "Tender opens next quarter. Needs references.", [[-20, "email", "Sent capability statement."]]),
+      mk("c7", "Naomi Fairbanks", "Fairbanks & Co.", "Founder", "client", "dormant", "t4", ["professional services"], -75, null, "Compliance audit finished. Worth a check-in.", [[-75, "meeting", "Project wrap-up and handover."]]),
+      mk("c8", "Ravi Menon", "Cloudline Hosting", "Account Manager", "partner", "active", "t2", ["partner", "cloud"], -12, 15, "Reseller partner. Good for hosting referrals.", [[-12, "call", "Agreed referral terms."]]),
+      mk("c9", "Ingrid Solheim", "Northern Audit Partners", "Partner", "partner", "active", "t1", ["partner", "audit"], -30, 30, "Refers clients who need security readiness work.", [[-30, "email", "Thanked her for the last referral."]]),
+      mk("c10", "Carlos Duarte", "Duarte Office Supply", "Sales Rep", "vendor", "active", "t7", ["office"], -40, null, "Handles office hardware orders.", [[-40, "email", "Placed a laptop order."]]),
+      mk("c11", "Yuki Tanaka", "Lumen Studio", "Creative Director", "other", "active", "t4", ["design"], -4, 3, "Possible collaborator on client-facing portals.", [[-4, "call", "Exploratory chat about working together."]]),
+      mk("c12", "Beatrice Cole", "Cole Manufacturing", "VP Operations", "prospect", "active", "t2", ["manufacturing"], -2, 2, "Wants a pilot for plant monitoring.", [[-2, "meeting", "Plant visit and demo."]])
+    ];
+    const D = [
+      { id: "d1", title: "Warehouse cloud migration", contactId: "c1", value: 120000, stage: "Proposal", owner: "t4", close: iso(21) },
+      { id: "d2", title: "Security assessment", contactId: "c2", value: 38000, stage: "Negotiation", owner: "t5", close: iso(9) },
+      { id: "d3", title: "Data platform build", contactId: "c3", value: 86000, stage: "Qualified", owner: "t3", close: iso(40) },
+      { id: "d4", title: "Finance reporting automation", contactId: "c4", value: 54000, stage: "Lead", owner: "t4", close: iso(60) },
+      { id: "d5", title: "Zero-trust review", contactId: "c5", value: 45000, stage: "Qualified", owner: "t5", close: iso(35) },
+      { id: "d6", title: "Citizen portal discovery", contactId: "c6", value: 28000, stage: "Lead", owner: "t1", close: iso(50) },
+      { id: "d7", title: "Managed services retainer", contactId: "c1", value: 60000, stage: "Won", owner: "t4", close: iso(-10) },
+      { id: "d8", title: "Plant monitoring pilot", contactId: "c12", value: 72000, stage: "Proposal", owner: "t2", close: iso(18) }
+    ];
+    const P = [
+      { id: "p1", name: "Warehouse systems migration", client: "Harbor & Vale Logistics", status: "In progress", progress: 45, due: iso(75), lead: "t3" },
+      { id: "p2", name: "Patient records hardening", client: "Meridian Health Group", status: "Review", progress: 85, due: iso(12), lead: "t5" },
+      { id: "p3", name: "Retail analytics platform", client: "Oakline Retail", status: "In progress", progress: 30, due: iso(110), lead: "t6" },
+      { id: "p4", name: "Managed services onboarding", client: "Harbor & Vale Logistics", status: "Planning", progress: 10, due: iso(30), lead: "t7" },
+      { id: "p5", name: "Internal portal v2", client: "Sky Corpes", status: "In progress", progress: 60, due: iso(45), lead: "t2" },
+      { id: "p6", name: "Compliance readiness audit", client: "Fairbanks & Co.", status: "Done", progress: 100, due: iso(-20), lead: "t5" }
+    ];
+    const K = [
+      { id: "k1", text: "Send revised proposal to Harbor & Vale", owner: "t4", due: iso(1), done: false },
+      { id: "k2", text: "Prepare security workshop for Meridian", owner: "t5", due: iso(3), done: false },
+      { id: "k3", text: "Review Q4 retainer pricing", owner: "t1", due: iso(6), done: false },
+      { id: "k4", text: "Update the onboarding checklist", owner: "t7", due: iso(2), done: false },
+      { id: "k5", text: "Follow up with Tallis Financial's CISO", owner: "t5", due: iso(-1), done: false },
+      { id: "k6", text: "Book the team offsite venue", owner: "t7", due: iso(14), done: false },
+      { id: "k7", text: "Check references for Kestrel tender", owner: "t1", due: iso(5), done: false },
+      { id: "k8", text: "Review Priya's migration runbook", owner: "t2", due: iso(2), done: false }
+    ];
+    const A = [
+      { ts: Date.now() - 3600e3 * 2, who: "t4", text: "logged a call with Helena Brandt" },
+      { ts: Date.now() - 3600e3 * 5, who: "t5", text: "moved Security assessment to Negotiation" },
+      { ts: Date.now() - 3600e3 * 26, who: "t3", text: "updated Warehouse systems migration to 45%" },
+      { ts: Date.now() - 3600e3 * 30, who: "t2", text: "added Beatrice Cole as a prospect" },
+      { ts: Date.now() - 3600e3 * 52, who: "t1", text: "closed Managed services retainer" }
+    ];
+    return { v: 1, team: T, contacts: C, deals: D, projects: P, tasks: K, activity: A, sent: [], trend: [4, 6, 5, 9, 8, 11] };
+  }
+  let S = (() => { try { const r = JSON.parse(localStorage.getItem(KEY)); if (r && r.v === 1) return r; } catch (e) { } return seed(); })();
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } };
+  const enquiries = () => { try { return JSON.parse(localStorage.getItem(EKEY) || "[]"); } catch (e) { return []; } };
+  const saveEnq = l => { try { localStorage.setItem(EKEY, JSON.stringify(l)); } catch (e) { } };
+  const team = id => S.team.find(t => t.id === id) || { id: "", name: "Unassigned", email: "", title: "", dept: "" };
+  const contact = id => S.contacts.find(c => c.id === id);
+  let ME = null;
+  const canManage = () => ME && (ME.role === "admin" || ME.role === "manager");
+  function log(text) { S.activity.unshift({ ts: Date.now(), who: ME.id, text }); S.activity = S.activity.slice(0, 40); save(); }
+
+  /* ---------- toast ---------- */
+  function toast(msg) { const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
+
+  /* ---------- login ---------- */
+  function renderHint() {
+    $("#hint").innerHTML = "<b>Demo access.</b> This is a front-end demo, so use any team email below with the password <code>" + DEMO_PASSWORD + "</code>:<br>" +
+      seed().team.slice(0, 3).map(t => "<code>" + esc(t.email) + "</code> (" + t.role + ")").join("<br>");
+  }
+  $("#loginForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const em = $("#lemail").value.trim().toLowerCase(), pw = $("#lpass").value;
+    const u = S.team.find(t => t.email === em);
+    if (!u || pw !== DEMO_PASSWORD) { $("#lerr").textContent = "That email and password do not match."; return; }
+    sessionStorage.setItem(SKEY, u.id);
+    boot(u);
+  });
+  function signOut() { sessionStorage.removeItem(SKEY); ME = null; $("#app").hidden = true; $("#login").hidden = false; $("#lpass").value = ""; $("#lerr").textContent = ""; location.hash = ""; }
+
+  /* ---------- shell ---------- */
+  const NAV = [["dashboard", "Dashboard", "home"], ["contacts", "Clients & contacts", "users"], ["pipeline", "Pipeline", "kanban"], ["outreach", "Outreach", "mail"], ["projects", "Projects", "folder"], ["team", "Team", "team"], ["settings", "Settings", "gear"]];
+  function alerts() {
+    const od = S.contacts.filter(c => c.nextFollowUp && c.nextFollowUp < today() && c.status === "active");
+    const en = enquiries().filter(e => !e.handled);
+    return { od, en, n: od.length + en.length };
+  }
+  function drawShell() {
+    const a = alerts();
+    $("#nav").innerHTML = NAV.map(([id, label, icon]) => `<a href="#/${id}" data-r="${id}">${ic(icon)}<span>${label}</span>${id === "contacts" && a.od.length ? `<span class="count">${a.od.length}</span>` : ""}</a>`).join("");
+    $("#me").innerHTML = `${avatar(ME.name)}<div><b>${esc(ME.name.split(" ")[0])}</b><small>${esc(ME.role)}</small></div><button id="out" aria-label="Sign out" title="Sign out">${ic("logout")}</button>`;
+    $("#out").addEventListener("click", signOut);
+    $("#burger").innerHTML = ic("menu");
+    $("#searchBtn").innerHTML = `${ic("search", 16)}<span>Search contacts, deals, pages</span><kbd>Ctrl K</kbd>`;
+    $("#bell").innerHTML = ic("bell") + (a.n ? `<span class="dot">${a.n}</span>` : "");
+    $("#themeBtn").innerHTML = ic(document.documentElement.dataset.theme === "dark" ? "sun" : "moon");
+  }
+  function boot(u) {
+    ME = u; $("#login").hidden = true; $("#app").hidden = false;
+    drawShell();
+    if (!location.hash.startsWith("#/")) location.hash = "#/dashboard"; else route();
+  }
+
+  /* ---------- views ---------- */
+  const views = {};
+  function route() {
+    if (!ME) return;
+    const r = (location.hash.replace("#/", "") || "dashboard").split("?")[0];
+    const id = views[r] ? r : "dashboard";
+    $$("#nav a").forEach(a => a.classList.toggle("on", a.dataset.r === id));
+    $("#crumb").textContent = (NAV.find(n => n[0] === id) || [])[1] || "";
+    $("#view").innerHTML = views[id].html();
+    views[id].mount && views[id].mount();
+    $("#side").classList.remove("open");
+    window.scrollTo(0, 0);
+  }
+  function refresh() { drawShell(); route(); }
+
+  /* Dashboard */
+  views.dashboard = {
+    html() {
+      const hr = new Date().getHours(), greet = hr < 12 ? "Good morning" : hr < 18 ? "Good afternoon" : "Good evening";
+      const active = S.contacts.filter(c => c.type === "client" && c.status === "active").length;
+      const open = S.deals.filter(d => d.stage !== "Won").reduce((s, d) => s + d.value, 0);
+      const won = S.deals.filter(d => d.stage === "Won").reduce((s, d) => s + d.value, 0);
+      const due = S.contacts.filter(c => c.nextFollowUp && c.nextFollowUp <= today() && c.status === "active").sort((a, b) => a.nextFollowUp.localeCompare(b.nextFollowUp));
+      const openTasks = S.tasks.filter(t => !t.done);
+      const enq = enquiries().filter(e => !e.handled);
+      const tot = {}; STAGES.forEach(s => tot[s] = 0); S.deals.forEach(d => tot[d.stage] += d.value);
+      const mx = Math.max(...Object.values(tot), 1);
+      const bars = STAGES.map((s, i) => { const h = Math.max(4, Math.round(tot[s] / mx * 110)); const x = 24 + i * 66; return `<rect class="bar-v" x="${x}" y="${128 - h}" width="40" height="${h}" rx="5" ${s === "Won" ? 'style="fill:var(--green)"' : ""}/><text x="${x + 20}" y="146" text-anchor="middle">${s}</text><text x="${x + 20}" y="${122 - h}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${tot[s] ? "$" + Math.round(tot[s] / 1000) + "k" : ""}</text>`; }).join("");
+      const months = []; for (let i = 5; i >= 0; i--) { const d = new Date(); d.setMonth(d.getMonth() - i); months.push(d.toLocaleDateString(undefined, { month: "short" })); }
+      const tmx = Math.max(...S.trend, 1);
+      const pts = S.trend.map((v, i) => [30 + i * 62, 120 - (v / tmx) * 96]);
+      const line = pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join(" ");
+      const trend = `<path d="${line} L${pts[5][0]} 128 L${pts[0][0]} 128 Z" fill="var(--amber)" opacity=".13"/><path d="${line}" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>` +
+        pts.map((p, i) => `<circle cx="${p[0]}" cy="${p[1]}" r="3.6" fill="var(--amber)"/><text x="${p[0]}" y="146" text-anchor="middle">${months[i]}</text><text x="${p[0]}" y="${p[1] - 9}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${S.trend[i]}</text>`).join("");
+      const mine = S.tasks.filter(t => t.owner === ME.id);
+      return `
+      <div class="ph"><div><h1>${greet}, ${esc(ME.name.split(" ")[0])}.</h1><p>${new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}. You have ${mine.filter(t => !t.done).length} open tasks and ${due.length} follow-ups due.</p></div>
+        <div class="row-actions"><button class="btn" data-act="new-contact">${ic("plus", 16)} Contact</button><button class="btn" data-act="new-deal">${ic("plus", 16)} Deal</button><a class="btn btn-p" href="#/outreach">${ic("send", 16)} Write to a client</a></div></div>
+      <div class="grid g4">
+        <div class="card kpi"><small>Active clients</small><strong>${active}</strong><span>${S.contacts.filter(c => c.type === "prospect").length} prospects in conversation</span></div>
+        <div class="card kpi"><small>Open pipeline</small><strong>${money(open)}</strong><span>${S.deals.filter(d => d.stage !== "Won").length} deals in progress</span></div>
+        <div class="card kpi"><small>Won this quarter</small><strong>${money(won)}</strong><span>${S.deals.filter(d => d.stage === "Won").length} closed deals</span></div>
+        <div class="card kpi ${due.length ? "warn" : ""}"><small>Follow-ups due</small><strong>${due.length}</strong><span>${due.filter(c => c.nextFollowUp < today()).length} overdue</span></div>
+      </div>
+      <div class="grid g2e mt">
+        <div class="card chart"><div class="card-h"><h3>Pipeline by stage</h3><span class="muted small">Total value</span></div><div class="card-b"><svg viewBox="0 0 360 156" role="img" aria-label="Pipeline value by stage"><line class="grid-l" x1="10" x2="350" y1="128" y2="128"/>${bars}</svg></div></div>
+        <div class="card chart"><div class="card-h"><h3>New enquiries per month</h3><span class="muted small">Sample data</span></div><div class="card-b"><svg viewBox="0 0 360 156" role="img" aria-label="Enquiries per month"><line class="grid-l" x1="10" x2="350" y1="128" y2="128"/>${trend}</svg></div></div>
+      </div>
+      <div class="grid g3 mt">
+        <div class="card"><div class="card-h"><h3>Follow-ups due</h3><a class="small muted" href="#/contacts">All contacts</a></div><div class="card-b"><ul class="list">${due.length ? due.slice(0, 5).map(c => `<li data-open="${c.id}" style="cursor:pointer">${avatar(c.name)}<div class="grow"><b>${esc(c.name)}</b><span>${esc(c.company)}</span></div><span class="badge ${c.nextFollowUp < today() ? "b-over" : "b-prospect"}">${c.nextFollowUp < today() ? "Overdue" : "Today"}</span></li>`).join("") : `<li class="empty" style="display:block">Nothing due. Nicely done.</li>`}</ul></div></div>
+        <div class="card"><div class="card-h"><h3>Tasks</h3><div class="seg" id="taskSeg"><button class="on" data-f="mine">Mine</button><button data-f="all">Everyone</button></div></div><div class="card-b"><ul class="list" id="taskList"></ul><form class="add-inline" id="taskForm"><input placeholder="Add a task" aria-label="New task" required><button class="btn btn-sm" type="submit">Add</button></form></div></div>
+        <div class="card"><div class="card-h"><h3>Website enquiries</h3><span class="badge ${enq.length ? "b-prospect" : "b-other"}">${enq.length} new</span></div><div class="card-b"><ul class="list">${enq.length ? enq.slice(0, 4).map(e => `<li><div class="grow"><b>${esc(e.name)}${e.company ? " · " + esc(e.company) : ""}</b><span>${esc(e.interest)} · ${ago(e.ts)}</span></div><button class="btn btn-sm" data-enq="${e.id}">Add</button></li>`).join("") : `<li class="empty" style="display:block">No new enquiries from the public site.</li>`}</ul></div></div>
+      </div>
+      <div class="grid g2 mt">
+        <div class="card"><div class="card-h"><h3>Recent activity</h3></div><div class="card-b"><ul class="list">${S.activity.slice(0, 6).map(a => `<li>${avatar(team(a.who).name, "sm")}<div class="grow"><b style="font-weight:500;white-space:normal"><strong>${esc(team(a.who).name.split(" ")[0])}</strong> ${esc(a.text)}</b><span>${ago(a.ts)}</span></div></li>`).join("")}</ul></div></div>
+        <div class="card"><div class="card-h"><h3>Notice board</h3></div><div class="card-b"><ul class="list">
+          <li><div class="grow"><b style="white-space:normal">Team offsite booking closes Friday</b><span>Lena is collecting dietary needs and travel dates.</span></div></li>
+          <li><div class="grow"><b style="white-space:normal">New starter next Monday</b><span>Please be around to say hello and help them settle in.</span></div></li>
+          <li><div class="grow"><b style="white-space:normal">Quarterly security refresher</b><span>Short session on phishing and password habits, due this month.</span></div></li>
+        </ul></div></div>
+      </div>`;
+    },
+    mount() {
+      let f = "mine";
+      const draw = () => {
+        const l = S.tasks.filter(t => (f === "all" || t.owner === ME.id)).sort((a, b) => (a.done - b.done) || a.due.localeCompare(b.due));
+        $("#taskList").innerHTML = l.length ? l.slice(0, 7).map(t => `<li><button class="tick ${t.done ? "done" : ""}" data-tk="${t.id}" aria-label="Mark done" aria-pressed="${t.done}">${t.done ? ic("check", 12) : ""}</button><div class="grow"><b class="${t.done ? "done-text" : ""}" style="white-space:normal">${esc(t.text)}</b><span class="${!t.done && t.due < today() ? "od" : ""}">${f === "all" ? esc(team(t.owner).name.split(" ")[0]) + " · " : ""}Due ${fmtDate(t.due)}</span></div></li>`).join("") : `<li class="empty" style="display:block">All clear.</li>`;
+      };
+      draw();
+      $("#taskSeg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; f = b.dataset.f; $$("#taskSeg button").forEach(x => x.classList.toggle("on", x === b)); draw(); });
+      $("#taskList").addEventListener("click", e => { const b = e.target.closest("[data-tk]"); if (!b) return; const t = S.tasks.find(x => x.id === b.dataset.tk); t.done = !t.done; if (t.done) log("completed \"" + t.text + "\""); save(); draw(); });
+      $("#taskForm").addEventListener("submit", e => { e.preventDefault(); const i = e.target.querySelector("input"); const v = i.value.trim(); if (!v) return; S.tasks.push({ id: uid("k"), text: v, owner: ME.id, due: iso(3), done: false }); save(); i.value = ""; draw(); });
+    }
+  };
+
+  /* Contacts */
+  const CF = { q: "", type: "all", status: "all" };
+  views.contacts = {
+    html() {
+      return `<div class="ph"><div><h1>Clients &amp; contacts</h1><p>Everyone we talk to, in one list. Click a row for the full history.</p></div>
+        <div class="row-actions"><button class="btn" id="csv">${ic("download", 16)} Export CSV</button><button class="btn btn-p" data-act="new-contact">${ic("plus", 16)} Add contact</button></div></div>
+        <div class="toolbar"><input type="search" id="cq" placeholder="Search name, company or tag" aria-label="Search contacts" value="${esc(CF.q)}">
+          <div class="chips" id="cchips">${["all", ...TYPES].map(t => `<button class="chip ${CF.type === t ? "on" : ""}" data-t="${t}">${t === "all" ? "Everyone" : t[0].toUpperCase() + t.slice(1) + "s"}</button>`).join("")}</div>
+          <select id="cst" style="width:auto" aria-label="Status"><option value="all">Any status</option><option value="active" ${CF.status === "active" ? "selected" : ""}>Active</option><option value="dormant" ${CF.status === "dormant" ? "selected" : ""}>Dormant</option></select></div>
+        <div class="card tbl-wrap"><table><thead><tr><th>Contact</th><th>Type</th><th>Owner</th><th>Last contact</th><th>Next follow-up</th></tr></thead><tbody id="ctb"></tbody></table></div>`;
+    },
+    mount() {
+      const draw = () => {
+        const q = CF.q.toLowerCase();
+        const l = S.contacts.filter(c => (CF.type === "all" || c.type === CF.type) && (CF.status === "all" || c.status === CF.status) && (!q || (c.name + " " + c.company + " " + c.tags.join(" ")).toLowerCase().includes(q)));
+        $("#ctb").innerHTML = l.length ? l.map(c => { const od = c.nextFollowUp && c.nextFollowUp < today() && c.status === "active"; return `<tr data-open="${c.id}"><td><div class="who">${avatar(c.name)}<div><b>${esc(c.name)}</b><span>${esc(c.role)}, ${esc(c.company)}</span></div></div></td><td><span class="badge b-${c.type}">${c.type}</span> ${c.status === "dormant" ? '<span class="badge b-dormant">dormant</span>' : ""}</td><td>${esc(team(c.owner).name.split(" ")[0])}</td><td>${fmtDate(c.lastContact)}</td><td class="${od ? "od" : ""}">${c.nextFollowUp ? fmtDate(c.nextFollowUp) + (od ? " (overdue)" : "") : '<span class="muted">None set</span>'}</td></tr>`; }).join("") : `<tr><td colspan="5" class="empty">No contacts match. Try clearing a filter.</td></tr>`;
+      };
+      draw();
+      $("#cq").addEventListener("input", e => { CF.q = e.target.value; draw(); });
+      $("#cst").addEventListener("change", e => { CF.status = e.target.value; draw(); });
+      $("#cchips").addEventListener("click", e => { const b = e.target.closest("[data-t]"); if (!b) return; CF.type = b.dataset.t; $$("#cchips .chip").forEach(x => x.classList.toggle("on", x === b)); draw(); });
+      $("#csv").addEventListener("click", () => {
+        const cols = ["name", "company", "role", "email", "phone", "type", "status", "lastContact", "nextFollowUp"];
+        const q = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+        const csv = [cols.join(",")].concat(S.contacts.map(c => cols.map(k => q(c[k])).join(","))).join("\n");
+        const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "sky-corpes-contacts.csv"; a.click(); URL.revokeObjectURL(a.href);
+        toast("Contacts exported");
+      });
+    }
+  };
+
+  /* Pipeline */
+  views.pipeline = {
+    html() {
+      const total = S.deals.filter(d => d.stage !== "Won").reduce((s, d) => s + d.value, 0);
+      return `<div class="ph"><div><h1>Pipeline</h1><p>${money(total)} in play. Drag a card to move it between stages.</p></div><div class="row-actions"><button class="btn btn-p" data-act="new-deal">${ic("plus", 16)} New deal</button></div></div>
+      <div class="board" id="board">${STAGES.map(s => { const l = S.deals.filter(d => d.stage === s); return `<div class="col" data-stage="${s}"><div class="col-h"><b>${s}</b><span>${money(l.reduce((a, d) => a + d.value, 0))}</span></div>${l.map(d => { const c = contact(d.contactId); return `<div class="deal" draggable="true" data-deal="${d.id}"><b>${esc(d.title)}</b><span class="muted small">${esc(c ? c.company : "No contact")}</span><div class="foot"><span class="val">${money(d.value)}</span><span title="${esc(team(d.owner).name)}">${avatar(team(d.owner).name, "sm")}</span></div></div>`; }).join("")}</div>`; }).join("")}</div>`;
+    },
+    mount() {
+      const b = $("#board"); let dragId = null;
+      b.addEventListener("dragstart", e => { const d = e.target.closest(".deal"); if (!d) return; dragId = d.dataset.deal; d.classList.add("drag"); e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", dragId); });
+      b.addEventListener("dragend", e => { const d = e.target.closest(".deal"); d && d.classList.remove("drag"); $$(".col").forEach(c => c.classList.remove("over")); });
+      b.addEventListener("dragover", e => { const c = e.target.closest(".col"); if (!c) return; e.preventDefault(); $$(".col").forEach(x => x.classList.toggle("over", x === c)); });
+      b.addEventListener("drop", e => {
+        const c = e.target.closest(".col"); if (!c || !dragId) return; e.preventDefault();
+        const d = S.deals.find(x => x.id === dragId); if (d && d.stage !== c.dataset.stage) { d.stage = c.dataset.stage; log("moved " + d.title + " to " + d.stage); save(); toast("Moved to " + d.stage); refresh(); }
+      });
+    }
+  };
+
+  /* Outreach */
+  const TPL = {
+    intro: ["Introduction from Sky Corpes", "Hi {{first_name}},\n\nI'm {{sender}} at Sky Corpes. I wanted to reach out and learn a bit more about what {{company}} is working on at the moment.\n\nWould you be open to a 30 minute call over the next couple of weeks? No slides, I would just like to listen and see whether we can help.\n\nBest wishes,\n{{sender}}"],
+    follow: ["Following up", "Hi {{first_name}},\n\nJust a quick note to follow up on our last conversation. Is there anything you need from us to move things forward at {{company}}?\n\nHappy to jump on a call if that is easier.\n\nThanks,\n{{sender}}"],
+    proposal: ["Your proposal from Sky Corpes", "Hi {{first_name}},\n\nAs promised, I have attached the proposal we discussed. It covers scope, timeline and pricing in plain terms. Please read it through and tell me what looks right and what does not.\n\nI am glad to walk through it with you and your team whenever suits.\n\nKind regards,\n{{sender}}"],
+    thanks: ["Thank you", "Hi {{first_name}},\n\nThank you for your time today. It was really useful to hear how {{company}} approaches this.\n\nI will send over a short summary of what we agreed in the next day or two.\n\nBest,\n{{sender}}"],
+    meet: ["Could we set up a meeting?", "Hi {{first_name}},\n\nI would like to find a time for us to meet and go over next steps for {{company}}. Would any of these work for you this week?\n\n- \n- \n\nIf not, send me a couple of times that suit you and I will make it work.\n\nThanks,\n{{sender}}"]
+  };
+  let OUT_PRE = null;
+  views.outreach = {
+    html() {
+      const pre = OUT_PRE; OUT_PRE = null;
+      return `<div class="ph"><div><h1>Outreach</h1><p>Write to clients, prospects and partners. Messages open in your own email app, and we keep a log here.</p></div></div>
+      <div class="grid g2"><div class="card"><div class="card-h"><h3>New message</h3></div><div class="card-b"><form class="compose" id="cmp">
+        <label>To<select id="oto"><option value="">Choose a contact</option>${S.contacts.map(c => `<option value="${c.id}" ${pre === c.id ? "selected" : ""}>${esc(c.name)} · ${esc(c.company)}</option>`).join("")}</select></label>
+        <div><div class="small muted" style="font-weight:600;margin-bottom:6px">Start from a template</div><div class="tpl" id="tpls">${Object.entries({ intro: "Introduction", follow: "Follow-up", proposal: "Proposal sent", thanks: "Thank you", meet: "Meeting request" }).map(([k, v]) => `<button type="button" class="chip" data-tpl="${k}">${v}</button>`).join("")}</div></div>
+        <label>Subject<input id="osub"></label>
+        <label>Message<textarea id="obody" style="min-height:230px"></textarea></label>
+        <div class="row-actions"><button class="btn btn-p" type="submit">${ic("send", 16)} Open in email app</button><button class="btn" type="button" id="olog">Log as sent</button></div>
+        <p class="small muted">Merge fields like {{first_name}} and {{company}} fill in automatically once you choose a contact.</p>
+      </form></div></div>
+      <div class="grid" style="align-content:start">
+        <div class="card"><div class="card-h"><h3>Email a whole group</h3></div><div class="card-b"><p class="small muted" style="margin-bottom:12px">Copy the addresses for a group and paste them into the Bcc line of a new email.</p><div class="add-inline" style="margin-top:0"><select id="grp"><option value="client">Active clients</option><option value="prospect">Prospects</option><option value="partner">Partners</option><option value="vendor">Vendors</option></select><button class="btn" id="copyb">Copy emails</button></div></div></div>
+        <div class="card"><div class="card-h"><h3>Sent log</h3></div><div class="card-b"><ul class="list" id="slog"></ul></div></div>
+      </div></div>`;
+    },
+    mount() {
+      const to = $("#oto"), sub = $("#osub"), body = $("#obody");
+      const fill = t => { const c = contact(to.value); return t.replace(/{{first_name}}/g, c ? c.name.split(" ")[0] : "there").replace(/{{company}}/g, c ? c.company : "your company").replace(/{{sender}}/g, ME.name.split(" ")[0]); };
+      let cur = null;
+      $("#tpls").addEventListener("click", e => { const b = e.target.closest("[data-tpl]"); if (!b) return; cur = TPL[b.dataset.tpl]; $$("#tpls .chip").forEach(x => x.classList.toggle("on", x === b)); sub.value = cur[0]; body.value = fill(cur[1]); });
+      to.addEventListener("change", () => { if (cur) body.value = fill(cur[1]); });
+      const drawLog = () => { $("#slog").innerHTML = S.sent.length ? S.sent.slice(0, 6).map(m => `<li><div class="grow"><b>${esc(m.subject)}</b><span>To ${esc(m.to)} · ${ago(m.ts)} · ${esc(m.by)}</span></div></li>`).join("") : `<li class="empty" style="display:block">Nothing logged yet.</li>`; };
+      drawLog();
+      const need = () => { const c = contact(to.value); if (!c) { toast("Choose who it is going to first"); return null; } if (!sub.value.trim() || !body.value.trim()) { toast("Add a subject and a message"); return null; } return c; };
+      const record = c => { S.sent.unshift({ ts: Date.now(), to: c.name, subject: sub.value.trim(), by: ME.name.split(" ")[0] }); c.lastContact = today(); c.timeline.unshift({ date: today(), kind: "email", text: "Emailed: " + sub.value.trim() }); log("emailed " + c.name); save(); drawLog(); };
+      $("#cmp").addEventListener("submit", e => { e.preventDefault(); const c = need(); if (!c) return; window.location.href = "mailto:" + c.email + "?subject=" + encodeURIComponent(sub.value) + "&body=" + encodeURIComponent(body.value); record(c); });
+      $("#olog").addEventListener("click", () => { const c = need(); if (!c) return; record(c); toast("Logged against " + c.name); });
+      $("#copyb").addEventListener("click", async () => {
+        const g = $("#grp").value; const l = S.contacts.filter(c => c.type === g && c.status === "active").map(c => c.email).join(", ");
+        try { await navigator.clipboard.writeText(l); toast("Copied " + (l ? l.split(",").length : 0) + " addresses"); } catch (e) { toast("Could not copy. Select and copy manually."); }
+      });
+    }
+  };
+
+  /* Projects */
+  let PF = "all";
+  views.projects = {
+    html() {
+      return `<div class="ph"><div><h1>Projects</h1><p>What the team is delivering and how far along each piece is.</p></div><div class="seg" id="pseg">${["all", "Planning", "In progress", "Review", "Done"].map(s => `<button data-s="${s}" class="${PF === s ? "on" : ""}">${s === "all" ? "All" : s}</button>`).join("")}</div></div><div class="grid g3" id="pgrid"></div>`;
+    },
+    mount() {
+      const draw = () => {
+        const l = S.projects.filter(p => PF === "all" || p.status === PF);
+        $("#pgrid").innerHTML = l.length ? l.map(p => `<div class="card proj"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h3>${esc(p.name)}</h3><span class="muted small">${esc(p.client)}</span></div><span class="st st-${p.status.replace(" ", "-")}">${p.status}</span></div>
+          <div><div style="display:flex;justify-content:space-between" class="small"><span class="muted">Progress</span><b>${p.progress}%</b></div><div class="bar" style="margin-top:6px"><i class="${p.progress === 100 ? "done" : ""}" style="width:${p.progress}%"></i></div></div>
+          <input type="range" min="0" max="100" step="5" value="${p.progress}" data-pr="${p.id}" aria-label="Progress for ${esc(p.name)}">
+          <div style="display:flex;justify-content:space-between;align-items:center" class="small"><span class="who">${avatar(team(p.lead).name, "sm")}<span style="color:var(--ink)">${esc(team(p.lead).name)}</span></span><span class="muted">Due ${fmtDate(p.due)}</span></div></div>`).join("") : `<div class="empty" style="grid-column:1/-1">No projects in this stage.</div>`;
+      };
+      draw();
+      $("#pseg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; PF = b.dataset.s; $$("#pseg button").forEach(x => x.classList.toggle("on", x === b)); draw(); });
+      $("#pgrid").addEventListener("change", e => {
+        const r = e.target.closest("[data-pr]"); if (!r) return; const p = S.projects.find(x => x.id === r.dataset.pr);
+        p.progress = +r.value; if (p.progress === 100) p.status = "Done"; else if (p.status === "Done") p.status = "In progress"; else if (p.status === "Planning" && p.progress > 0) p.status = "In progress";
+        log("updated " + p.name + " to " + p.progress + "%"); save(); draw();
+      });
+    }
+  };
+
+  /* Team */
+  const SC = { "In office": "#1f8a5b", "Remote": "#2c5db3", "With a client": "#d9822b", "Away": "#8a94a6" };
+  views.team = {
+    html() {
+      return `<div class="ph"><div><h1>Team</h1><p>${S.team.length} people. Let colleagues know where you are today.</p></div>
+        <label style="grid-auto-flow:column;align-items:center;gap:10px">Your status<select id="mystat" style="width:auto">${Object.keys(SC).map(s => `<option ${team(ME.id).status === s ? "selected" : ""}>${s}</option>`).join("")}</select></label></div>
+        <div class="grid g4">${S.team.map(t => `<div class="card person">${avatar(t.name, "lg")}<b>${esc(t.name)}</b><span class="muted small">${esc(t.title)}</span><span class="small muted">${esc(t.dept)}</span><span class="stat" style="--c:${SC[t.status] || "#aaa"}">${esc(t.status)}</span><a class="small" style="color:var(--blue);margin-top:6px" href="mailto:${esc(t.email)}">${esc(t.email)}</a></div>`).join("")}</div>`;
+    },
+    mount() { $("#mystat").addEventListener("change", e => { team(ME.id).status = e.target.value; save(); toast("Status updated"); refresh(); }); }
+  };
+
+  /* Settings */
+  views.settings = {
+    html() {
+      return `<div class="ph"><div><h1>Settings</h1><p>Your account and how the portal looks.</p></div></div>
+      <div class="grid g2e"><div class="card"><div class="card-h"><h3>Your account</h3></div><div class="card-b"><dl class="kv"><dt>Name</dt><dd>${esc(ME.name)}</dd><dt>Title</dt><dd>${esc(ME.title)}</dd><dt>Email</dt><dd>${esc(ME.email)}</dd><dt>Access level</dt><dd style="text-transform:capitalize">${esc(ME.role)}${canManage() ? " (can delete records)" : " (cannot delete records)"}</dd></dl>
+        <div class="row-actions" style="margin-top:18px"><button class="btn" id="stheme">Switch to ${document.documentElement.dataset.theme === "dark" ? "light" : "dark"} mode</button><button class="btn" id="sout">${ic("logout", 16)} Sign out</button></div></div></div>
+      <div class="card"><div class="card-h"><h3>Data</h3></div><div class="card-b"><p class="muted" style="margin-bottom:14px">Everything here is stored in this browser only, which is fine for a demo but not for real client data. Before going live, connect the portal to a proper database and server-side sign-in.</p>
+        ${canManage() ? `<button class="btn btn-d" id="reset">Reset to sample data</button>` : `<p class="small muted">Only managers and admins can reset the data.</p>`}</div></div></div>`;
+    },
+    mount() {
+      $("#stheme").addEventListener("click", toggleTheme); $("#sout").addEventListener("click", signOut);
+      const r = $("#reset"); r && r.addEventListener("click", () => { if (confirm("Reset all portal data to the sample set? This cannot be undone.")) { S = seed(); save(); saveEnq([]); ME = team(ME.id); toast("Sample data restored"); refresh(); } });
+    }
+  };
+
+  /* ---------- drawer, modal ---------- */
+  const layer = $("#layer");
+  function close() { layer.innerHTML = ""; document.body.style.overflow = ""; }
+  function overlay(inner, cls) { layer.innerHTML = `<div class="overlay" id="ov"></div>${inner}`; document.body.style.overflow = "hidden"; $("#ov").addEventListener("click", close); }
+
+  function openContact(id) {
+    const c = contact(id); if (!c) return;
+    const od = c.nextFollowUp && c.nextFollowUp < today() && c.status === "active";
+    overlay(`<aside class="drawer" role="dialog" aria-modal="true" aria-label="${esc(c.name)}">
+      <div class="dr-h">${avatar(c.name, "lg")}<div style="flex:1"><h2>${esc(c.name)}</h2><div class="muted small">${esc(c.role)}, ${esc(c.company)}</div><div style="margin-top:8px"><span class="badge b-${c.type}">${c.type}</span> ${c.status === "dormant" ? '<span class="badge b-dormant">dormant</span>' : ""}</div></div><button class="icon-btn" id="dx" aria-label="Close">${ic("x")}</button></div>
+      <div class="dr-b">
+        <div class="row-actions"><button class="btn btn-p btn-sm" id="dmail">${ic("mail", 14)} Write email</button><button class="btn btn-sm" id="dedit">Edit</button>${canManage() ? '<button class="btn btn-sm btn-d" id="ddel">Delete</button>' : ""}</div>
+        <div><h4>Details</h4><dl class="kv"><dt>Email</dt><dd><a style="color:var(--blue)" href="mailto:${esc(c.email)}">${esc(c.email)}</a></dd><dt>Phone</dt><dd>${esc(c.phone)}</dd><dt>Owner</dt><dd>${esc(team(c.owner).name)}</dd><dt>Last contact</dt><dd>${fmtDate(c.lastContact)}</dd><dt>Follow-up</dt><dd class="${od ? "od" : ""}">${c.nextFollowUp ? fmtDate(c.nextFollowUp) + (od ? " (overdue)" : "") : "None set"}</dd></dl></div>
+        ${c.tags.length ? `<div class="tags"><h4>Tags</h4>${c.tags.map(t => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
+        <div><h4>Notes</h4><textarea id="dnotes">${esc(c.notes)}</textarea><button class="btn btn-sm" id="dsave" style="margin-top:8px">Save notes</button></div>
+        <div><h4>Log an interaction</h4><form id="dlog" class="add-inline" style="flex-wrap:wrap"><select name="kind" style="width:auto"><option value="call">Call</option><option value="email">Email</option><option value="meeting">Meeting</option></select><input name="text" placeholder="What happened?" style="flex:1;min-width:160px" required><button class="btn btn-sm btn-a" type="submit">Add</button></form></div>
+        <div><h4>History</h4><ul class="tl">${c.timeline.length ? c.timeline.map(t => `<li><b style="text-transform:capitalize">${esc(t.kind)}</b>: ${esc(t.text)}<small>${fmtDate(t.date)}</small></li>`).join("") : '<li class="muted">No history yet.</li>'}</ul></div>
+      </div></aside>`);
+    $("#dx").addEventListener("click", close);
+    $("#dmail").addEventListener("click", () => { OUT_PRE = c.id; close(); if (location.hash === "#/outreach") route(); else location.hash = "#/outreach"; });
+    $("#dedit").addEventListener("click", () => contactForm(c));
+    const del = $("#ddel"); del && del.addEventListener("click", () => { if (confirm("Delete " + c.name + "? This cannot be undone.")) { S.contacts = S.contacts.filter(x => x.id !== c.id); log("deleted contact " + c.name); save(); close(); toast("Contact deleted"); refresh(); } });
+    $("#dsave").addEventListener("click", () => { c.notes = $("#dnotes").value; save(); toast("Notes saved"); });
+    $("#dlog").addEventListener("submit", e => { e.preventDefault(); const f = new FormData(e.target); c.timeline.unshift({ date: today(), kind: f.get("kind"), text: f.get("text").trim() }); c.lastContact = today(); log("logged a " + f.get("kind") + " with " + c.name); save(); toast("Interaction logged"); openContact(c.id); route(); });
+  }
+
+  function contactForm(c) {
+    const n = !c; c = c || { name: "", company: "", role: "", email: "", phone: "", type: "prospect", status: "active", owner: ME.id, tags: [], nextFollowUp: "", notes: "" };
+    overlay(`<div class="modal" role="dialog" aria-modal="true" aria-label="${n ? "Add contact" : "Edit contact"}"><div class="modal-h"><h2>${n ? "Add a contact" : "Edit contact"}</h2><button class="icon-btn" id="mx" aria-label="Close">${ic("x")}</button></div>
+      <form id="cf"><div class="f2"><label>Full name<input name="name" value="${esc(c.name)}" required></label><label>Company<input name="company" value="${esc(c.company)}" required></label></div>
+      <div class="f2"><label>Job title<input name="role" value="${esc(c.role)}"></label><label>Email<input name="email" type="email" value="${esc(c.email)}" required></label></div>
+      <div class="f2"><label>Phone<input name="phone" value="${esc(c.phone)}"></label><label>Type<select name="type">${TYPES.map(t => `<option ${c.type === t ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+      <div class="f2"><label>Owner<select name="owner">${S.team.map(t => `<option value="${t.id}" ${c.owner === t.id ? "selected" : ""}>${esc(t.name)}</option>`).join("")}</select></label><label>Next follow-up<input name="next" type="date" value="${esc(c.nextFollowUp)}"></label></div>
+      <div class="f2"><label>Status<select name="status"><option ${c.status === "active" ? "selected" : ""}>active</option><option ${c.status === "dormant" ? "selected" : ""}>dormant</option></select></label><label>Tags (comma separated)<input name="tags" value="${esc(c.tags.join(", "))}"></label></div>
+      <label>Notes<textarea name="notes">${esc(c.notes)}</textarea></label>
+      <div class="modal-f"><button type="button" class="btn" id="mc">Cancel</button><button class="btn btn-p" type="submit">${n ? "Add contact" : "Save changes"}</button></div></form></div>`);
+    $("#mx").addEventListener("click", close); $("#mc").addEventListener("click", close);
+    $("#cf").addEventListener("submit", e => {
+      e.preventDefault(); const f = Object.fromEntries(new FormData(e.target));
+      const data = { name: f.name.trim(), company: f.company.trim(), role: f.role.trim(), email: f.email.trim(), phone: f.phone.trim(), type: f.type, status: f.status, owner: f.owner, tags: f.tags.split(",").map(s => s.trim()).filter(Boolean), nextFollowUp: f.next, notes: f.notes };
+      if (n) { S.contacts.unshift({ id: uid("c"), lastContact: today(), timeline: [{ date: today(), kind: "note", text: "Added to the portal" }], ...data }); log("added " + data.name + " as a " + data.type); toast("Contact added"); }
+      else { Object.assign(c, data); log("updated " + data.name); toast("Changes saved"); }
+      save(); close(); refresh();
+    });
+  }
+
+  function dealForm() {
+    overlay(`<div class="modal" role="dialog" aria-modal="true" aria-label="New deal"><div class="modal-h"><h2>New deal</h2><button class="icon-btn" id="mx" aria-label="Close">${ic("x")}</button></div>
+      <form id="df"><label>Deal name<input name="title" required></label>
+      <div class="f2"><label>Contact<select name="contact" required>${S.contacts.map(c => `<option value="${c.id}">${esc(c.name)} · ${esc(c.company)}</option>`).join("")}</select></label><label>Value (USD)<input name="value" type="number" min="0" step="500" required></label></div>
+      <div class="f2"><label>Stage<select name="stage">${STAGES.map(s => `<option>${s}</option>`).join("")}</select></label><label>Expected close<input name="close" type="date" value="${iso(30)}"></label></div>
+      <div class="modal-f"><button type="button" class="btn" id="mc">Cancel</button><button class="btn btn-p" type="submit">Create deal</button></div></form></div>`);
+    $("#mx").addEventListener("click", close); $("#mc").addEventListener("click", close);
+    $("#df").addEventListener("submit", e => { e.preventDefault(); const f = Object.fromEntries(new FormData(e.target)); S.deals.push({ id: uid("d"), title: f.title.trim(), contactId: f.contact, value: +f.value, stage: f.stage, owner: ME.id, close: f.close }); log("created deal " + f.title.trim()); save(); close(); toast("Deal created"); refresh(); });
+  }
+
+  /* ---------- search palette ---------- */
+  function openPalette() {
+    const pages = NAV.map(([id, l]) => ({ k: "page", id, label: l, sub: "page", go: () => location.hash = "#/" + id }));
+    layer.innerHTML = `<div class="overlay" id="ov"></div><div class="pal" role="dialog" aria-modal="true" aria-label="Search"><input id="pq" placeholder="Search contacts, deals, pages" autocomplete="off"><ul id="pl"></ul></div>`;
+    $("#ov").addEventListener("click", close);
+    let res = [], sel = 0;
+    const draw = () => { $("#pl").innerHTML = res.length ? res.map((r, i) => `<li class="${i === sel ? "sel" : ""}" data-i="${i}">${r.k === "contact" ? avatar(r.label, "sm") : ic(r.k === "deal" ? "kanban" : "home", 16)}<span>${esc(r.label)}</span><small>${esc(r.sub)}</small></li>`).join("") : `<li class="muted">Nothing found</li>`; };
+    const find = q => { q = q.toLowerCase(); res = [...pages.filter(p => p.label.toLowerCase().includes(q)), ...S.contacts.filter(c => (c.name + c.company).toLowerCase().includes(q)).map(c => ({ k: "contact", label: c.name, sub: c.company, go: () => { location.hash = "#/contacts"; setTimeout(() => openContact(c.id), 30); } })), ...S.deals.filter(d => d.title.toLowerCase().includes(q)).map(d => ({ k: "deal", label: d.title, sub: d.stage, go: () => location.hash = "#/pipeline" }))].slice(0, 9); sel = 0; draw(); };
+    const run = i => { const r = res[i]; if (!r) return; close(); r.go(); };
+    find(""); const q = $("#pq"); q.focus();
+    q.addEventListener("input", () => find(q.value));
+    q.addEventListener("keydown", e => { if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(res.length - 1, sel + 1); draw(); } else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(0, sel - 1); draw(); } else if (e.key === "Enter") run(sel); });
+    $("#pl").addEventListener("click", e => { const li = e.target.closest("[data-i]"); li && run(+li.dataset.i); });
+  }
+
+  /* ---------- theme ---------- */
+  function setTheme(t) { document.documentElement.dataset.theme = t; try { localStorage.setItem(TKEY, t); } catch (e) { } if (ME) { drawShell(); } }
+  function toggleTheme() { setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"); if (ME) route(); }
+
+  /* ---------- global events ---------- */
+  document.addEventListener("click", e => {
+    const act = e.target.closest("[data-act]"); if (act) { act.dataset.act === "new-contact" ? contactForm() : dealForm(); return; }
+    const op = e.target.closest("[data-open]"); if (op) { openContact(op.dataset.open); return; }
+    const en = e.target.closest("[data-enq]");
+    if (en) {
+      const l = enquiries(), x = l.find(q => q.id === en.dataset.enq); if (!x) return;
+      S.contacts.unshift({ id: uid("c"), name: x.name, company: x.company || "Unknown company", role: "", email: x.email, phone: "", type: "prospect", status: "active", owner: ME.id, tags: ["website", x.interest.toLowerCase()], lastContact: today(), nextFollowUp: iso(1), notes: x.message, timeline: [{ date: today(), kind: "note", text: "Came in through the website contact form" }] });
+      x.handled = true; saveEnq(l); log("added " + x.name + " from the website"); save(); toast(x.name + " added as a prospect"); refresh(); return;
+    }
+    if (!e.target.closest("#pop") && !e.target.closest("#bell")) $("#pop").hidden = true;
+  });
+  document.addEventListener("keydown", e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k" && ME) { e.preventDefault(); openPalette(); }
+    if (e.key === "Escape") close();
+  });
+  $("#burger").addEventListener("click", () => $("#side").classList.toggle("open"));
+  $("#searchBtn").addEventListener("click", openPalette);
+  $("#themeBtn").addEventListener("click", toggleTheme);
+  $("#bell").addEventListener("click", () => {
+    const a = alerts(), p = $("#pop");
+    p.innerHTML = `<ul>${a.n ? a.od.slice(0, 4).map(c => `<li data-open="${c.id}"><b>Follow up with ${esc(c.name)}</b><small>${esc(c.company)} · was due ${fmtDate(c.nextFollowUp)}</small></li>`).join("") + a.en.slice(0, 3).map(x => `<li onclick="location.hash='#/dashboard'"><b>New enquiry from ${esc(x.name)}</b><small>${esc(x.interest)} · ${ago(x.ts)}</small></li>`).join("") : `<li><b>You are all caught up</b><small>No overdue follow-ups or new enquiries.</small></li>`}</ul>`;
+    p.hidden = !p.hidden;
+  });
+  window.addEventListener("hashchange", route);
+
+  /* ---------- start ---------- */
+  try { const t = localStorage.getItem(TKEY); if (t) document.documentElement.dataset.theme = t; } catch (e) { }
+  renderHint();
+  const sid = sessionStorage.getItem(SKEY);
+  if (sid && team(sid).id) boot(team(sid));
+})();
+</script>
+</body>
+</html>
